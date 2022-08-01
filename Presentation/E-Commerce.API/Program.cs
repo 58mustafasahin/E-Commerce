@@ -1,6 +1,7 @@
 using E_Commerce.Application.Validators.Products;
 using E_Commerce.Infrastructure;
 using E_Commerce.Infrastructure.Filters;
+using E_Commerce.Infrastructure.Services.Storage.Azure;
 using E_Commerce.Infrastructure.Services.Storage.Local;
 using E_Commerce.Persistence;
 using FluentValidation.AspNetCore;
@@ -12,7 +13,8 @@ builder.Services.AddPersistenceServices();
 builder.Services.AddInfrastructureServices();
 
 //builder.Services.AddStorage(StorageType.Azure);
-builder.Services.AddStorage<LocalStorage>();
+builder.Services.AddStorage<AzureStorage>();
+//builder.Services.AddStorage<LocalStorage>();
 
 builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>
     policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin()
