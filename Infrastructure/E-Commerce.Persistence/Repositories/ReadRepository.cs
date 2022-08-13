@@ -40,7 +40,7 @@ namespace E_Commerce.Persistence.Repositories
             return await query.FirstOrDefaultAsync();
         }
 
-        public async Task<T> GetByIdAync(string id, bool tracking = true)
+        public async Task<T> GetByIdAsync(string id, bool tracking = true)
         //=> await Table.FirstOrDefaultAsync(p => p.Id == Guid.Parse(id));
         //=> await Table.FindAsync(Guid.Parse(id));
         {
