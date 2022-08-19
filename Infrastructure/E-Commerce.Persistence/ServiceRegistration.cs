@@ -1,6 +1,5 @@
-﻿using E_Commerce.Application.Abstractions;
-using E_Commerce.Application.Repositories;
-using E_Commerce.Persistence.Concretes;
+﻿using E_Commerce.Application.Repositories;
+using E_Commerce.Domain.Entities.Identity;
 using E_Commerce.Persistence.Configurations;
 using E_Commerce.Persistence.Contexts;
 using E_Commerce.Persistence.Repositories;
@@ -14,7 +13,15 @@ namespace E_Commerce.Persistence
         public static void AddPersistenceServices(this IServiceCollection services)
         {
             services.AddDbContextPool<ECommerceDbContext>(options => options.UseNpgsql(Configuration.ConnectionString));
-            services.AddSingleton<IProductService, ProductService>();
+            services.AddIdentity<AppUser, AppRole>(options =>
+            {
+                options.Password.RequiredLength = 3;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+            }).AddEntityFrameworkStores<ECommerceDbContext>();
+
             services.AddScoped<ICustomerReadRepository, CustomerReadRepository>();
             services.AddScoped<ICustomerWriteRepository, CustomerWriteRepository>();
             services.AddScoped<IOrderReadRepository, OrderReadRepository>();
