@@ -1,4 +1,5 @@
 ﻿using E_Commerce.API.Configurations.ColumnWriters;
+using E_Commerce.API.Extensions;
 using E_Commerce.Application;
 using E_Commerce.Application.Validators.Products;
 using E_Commerce.Infrastructure;
@@ -97,7 +98,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.ConfigureExceptionHandler<Program>(app.Services.GetRequiredService<ILogger<Program>>());
 app.UseStaticFiles();
 
 app.UseSerilogRequestLogging();
